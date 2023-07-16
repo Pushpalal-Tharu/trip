@@ -229,7 +229,7 @@ class Profile extends StatelessWidget {
                     InkWell(
                       splashColor: Colors.blue,
                       onTap: () async {
-                        Get.toNamed("/userProfileSettings");
+                        Get.toNamed("/ProfileSettings");
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -46,7 +46,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.toNamed("/userProfileAccountSecurity");
+                      Get.toNamed("/ProfileAccountSecurity");
                     },
                     child: ListTile(
                       title: const Text(

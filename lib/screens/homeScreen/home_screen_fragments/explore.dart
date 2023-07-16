@@ -72,7 +72,7 @@ class _ExplorePageState extends State<Explore> {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed("/userProfileLanding");
+                                Get.toNamed("/Profile");
                               },
                               child: CircleAvatar(
                                 backgroundColor: const Color(0xFF222034),

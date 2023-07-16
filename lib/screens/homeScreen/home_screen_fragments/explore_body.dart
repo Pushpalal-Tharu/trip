@@ -133,7 +133,7 @@ class _ExplorePageBodyState extends State<ExploreBody> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed("/Template");
+                        Get.toNamed("/template");
                       },
                       child: Container(
                         child: const Row(
@@ -201,7 +201,8 @@ class _ExplorePageBodyState extends State<ExploreBody> {
           alignment: Alignment.centerRight,
           child: Container(
             height: 43,
-            margin: const EdgeInsets.only(left: 25, right: 34, bottom: 10, top: 120),
+            margin: const EdgeInsets.only(
+                left: 25, right: 34, bottom: 10, top: 120),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: Colors.white,
@@ -224,7 +225,8 @@ class _ExplorePageBodyState extends State<ExploreBody> {
           child: Container(
             height: 212,
             width: 200,
-            margin: const EdgeInsets.only(left: 150, right: 20, bottom: 10, top: 32),
+            margin: const EdgeInsets.only(
+                left: 150, right: 20, bottom: 10, top: 32),
             child: const Text(
               "Let's Make Our Life so a Life",
               style: TextStyle(
