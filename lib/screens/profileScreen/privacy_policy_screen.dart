@@ -12,7 +12,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   WebViewController _controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(const Color(0x00000000))
-    ..loadRequest(Uri.parse('https://flutter.dev'));
+    ..loadRequest(Uri.parse('https://ytricks.co/privacy-policy/'));
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         backgroundColor: const Color(0xFFDBDFAA),
         title: const Text("Privacy Policy"),
       ),
-      body: Center(
-        child: WebViewWidget(
-          controller: _controller,
-        ),
+      body: WebViewWidget(
+        controller: _controller,
       ),
     );
   }
