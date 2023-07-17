@@ -22,8 +22,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         backgroundColor: const Color(0xFFDBDFAA),
         title: const Text("Privacy Policy"),
       ),
-      body: WebViewWidget(
-        controller: _controller,
+      body: Container(
+        margin: EdgeInsets.only(left: 8, right: 8),
+        child: WebViewWidget(
+          controller: _controller,
+        ),
       ),
     );
   }
