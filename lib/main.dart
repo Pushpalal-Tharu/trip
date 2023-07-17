@@ -4,6 +4,7 @@ import 'package:trip/screens/homeScreen/home_screen_fragments/explore.dart';
 import 'package:trip/screens/homeScreen/home_screen_fragments/profile.dart';
 import 'package:trip/screens/homeScreen/home_screen_fragments/template.dart';
 import 'package:trip/screens/profileScreen/Language_screen.dart';
+import 'package:trip/screens/profileScreen/about_app_screen.dart';
 import 'package:trip/screens/profileScreen/account_security_screen.dart';
 import 'package:trip/screens/profileScreen/font_and_color_setting_screen.dart';
 import 'package:trip/screens/profileScreen/notification_setting_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LanguageScreen(),
+      home: AboutAppScreen(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
         GetPage(name: "/template", page: () => Template()),
