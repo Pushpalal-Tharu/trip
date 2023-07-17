@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Explore(),
+      home: PrivacyPolicyScreen(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
         GetPage(name: "/template", page: () => Template()),
