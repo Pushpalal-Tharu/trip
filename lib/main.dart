@@ -10,6 +10,7 @@ import 'package:trip/screens/profileScreen/font_and_color_setting_screen.dart';
 import 'package:trip/screens/profileScreen/notification_setting_screen.dart';
 import 'package:trip/screens/profileScreen/privacy_policy_screen.dart';
 import 'package:trip/screens/profileScreen/settings_screen.dart';
+import 'package:trip/screens/trip_over_view_screen/current_trip_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: AboutAppScreen(),
+      home: CurrentTripScreen(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
         GetPage(name: "/template", page: () => Template()),
