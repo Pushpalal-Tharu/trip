@@ -8,7 +8,7 @@ class TripHistoryDetailBodyListview extends StatelessWidget {
   TripHistoryDetailBodyListview({
     super.key,
   });
-  List newList = [];
+  List newList = [5];
   @override
   Widget build(BuildContext context) {
     return newList.isEmpty ? NoHistoryAvailable() : HistoryAvailable();

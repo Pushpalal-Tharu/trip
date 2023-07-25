@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trip/screens/trip_over_view_screen/trip_history_body.dart';
-import 'package:trip/screens/trip_over_view_screen/trip_history_detail_body.dart';
 import 'package:trip/widgets/big_text.dart';
 import 'current_trip_body.dart';
 
