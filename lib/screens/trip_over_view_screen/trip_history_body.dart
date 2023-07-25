@@ -16,13 +16,13 @@ class TripHistoryBody extends StatelessWidget {
         children: [
           StaticHeader(),
           Container(
-            height: MediaQuery.of(context).size.height * .55,
+            height: MediaQuery.of(context).size.height * .70,
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 6,
               ),
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: 20,
                 shrinkWrap: true,
                 physics: AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
@@ -69,18 +69,19 @@ class TripHistoryBody extends StatelessWidget {
                           ],
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Card(
-                              color: Color(0xFFDBDFAA),
-                              child: Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width * .95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Stack(
+                          child: Card(
+                            color: Color(0xFFDBDFAA),
+                            child: Container(
+                              height: 80,
+                              width: MediaQuery.of(context).size.width * .95,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 8, left: 16.0),
+                                    child: Stack(
                                       children: [
                                         Container(
                                           margin:
@@ -116,7 +117,9 @@ class TripHistoryBody extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Container(
+                                  ),
+                                  Expanded(
+                                    child: Container(
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -124,63 +127,34 @@ class TripHistoryBody extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           BigText(
-                                            text: "Bike Riding",
+                                            text: "Manaslu Trekk from Pokhara",
+                                            color: Color(0xFF222034),
+                                            size: 16,
                                           ),
-                                          SmallText(text: "From"),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          SmallText(text: "To")
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 6.0),
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              child: Row(
-                                                children: [
-                                                  SmallText(
-                                                    text: "1.05 Hrs",
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Container(
-                                                    height: 30,
-                                                    width: 30,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFFDBDFAA),
-                                                      borderRadius:
-                                                          BorderRadiusDirectional
-                                                              .circular(16),
-                                                    ),
-                                                    child: Icon(Icons
-                                                        .bike_scooter_outlined),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            SmallText(
-                                                text: "Kathmandu, Sinamangal"),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            SmallText(text: "Malekhu, Dhading")
-                                          ],
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 16.0, left: 8),
+                                    child: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          SmallText(
+                                            text: "01/03/2023",
+                                            size: 14,
+                                            color: Color(0xFF222034),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -194,7 +168,7 @@ class TripHistoryBody extends StatelessWidget {
           ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 16),
             child: Container(
               width: double.maxFinite,
               child: ElevatedButton(
@@ -204,7 +178,7 @@ class TripHistoryBody extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: Text(
-                    "Start Your Trip Today",
+                    "Create New Trip",
                     style: TextStyle(color: Colors.white),
                   )),
             ),
@@ -223,13 +197,9 @@ class StaticHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 8.0,
-        right: 8,
-      ),
+      padding: const EdgeInsets.only(left: 22, right: 10),
       child: Container(
         height: 35,
-        width: 345,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: const Color(0xFF222034),
@@ -258,7 +228,7 @@ class StaticHeader extends StatelessWidget {
               alignment: Alignment.center,
               // color: Colors.red,
               child: Text(
-                "Partakers",
+                "Trip’s Name",
                 style: TextStyle(
                   color: const Color(0xFFDBDFAA),
                   fontSize: 14,
@@ -274,7 +244,7 @@ class StaticHeader extends StatelessWidget {
               alignment: Alignment.center,
               // color: Colors.red,
               child: Text(
-                "Partakers",
+                "Trip’s Date",
                 style: TextStyle(
                   color: const Color(0xFFDBDFAA),
                   fontSize: 14,
