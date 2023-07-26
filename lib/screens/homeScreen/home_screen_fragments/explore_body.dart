@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:trip/screens/homeScreen/home_screen_fragments/template.dart';
 
-import '../../../../../widgets/expandable_container.dart';
+import '../../../widgets/expandable_container.dart';
 
 class ExploreBody extends StatefulWidget {
   const ExploreBody({super.key});
@@ -13,6 +14,19 @@ class ExploreBody extends StatefulWidget {
 
 class _ExplorePageBodyState extends State<ExploreBody> {
   PageController pageController = PageController();
+
+  List template = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,7 +92,7 @@ class _ExplorePageBodyState extends State<ExploreBody> {
               ],
             )),
         Container(
-          height: 101,
+          height: 95,
           // color: Colors.green,
           margin: const EdgeInsets.only(left: 16, right: 16, top: 12),
           child: ListView.builder(
@@ -133,7 +147,13 @@ class _ExplorePageBodyState extends State<ExploreBody> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed("/template");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Template(
+                                    template: template,
+                                  )),
+                        );
                       },
                       child: Container(
                         child: const Row(
@@ -159,25 +179,21 @@ class _ExplorePageBodyState extends State<ExploreBody> {
                 ),
               ],
             )),
-        Container(
-          height: 500,
-          // height: MediaQuery.of(context).size.height,
-          // width: MediaQuery.of(context).size.width,
-          child: ListView.builder(
-            itemCount: 3,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return ExpandableContainer(
-                bodyText:
-                    "Don't wait-start your 1-day trip now with this template to take you on an unforgettable journey.",
-                titalText: "Template for 1-day group trip.",
-                icon: Icons.route,
-                firstButtonText: "Apply Now",
-                secondButtonText: "Read Manual",
-                size: 12,
-              );
-            },
-          ),
+        ListView.builder(
+          itemCount: template.length > 3 ? 3 : template.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return ExpandableContainer(
+              bodyText:
+                  "Don't wait-start your 1-day trip now with this template to take you on an unforgettable journey.",
+              titalText: "Template for 1-day group trip.",
+              icon: Icons.route,
+              firstButtonText: "Apply Now",
+              secondButtonText: "Read Manual",
+              size: 12,
+            );
+          },
         )
       ],
     );

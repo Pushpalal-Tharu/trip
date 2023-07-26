@@ -29,10 +29,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CurrentTripScreen(),
+      home: Explore(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
-        GetPage(name: "/template", page: () => Template()),
+        GetPage(
+            name: "/template",
+            page: () => Template(
+                  template: [],
+                )),
         GetPage(name: "/Profile", page: () => Profile()),
         GetPage(name: "/ProfileSettings", page: () => ProfileSettingsScreen()),
         GetPage(

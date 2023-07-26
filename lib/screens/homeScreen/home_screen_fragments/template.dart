@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import '../../../../../widgets/big_text.dart';
@@ -5,7 +6,11 @@ import '../../../../../widgets/expandable_container.dart';
 import '../../../../../widgets/small_text.dart';
 
 class Template extends StatefulWidget {
-  const Template({super.key});
+  List template;
+  Template({
+    Key? key,
+    required this.template,
+  }) : super(key: key);
 
   @override
   State<Template> createState() => _TemplateState();
@@ -40,13 +45,11 @@ class _TemplateState extends State<Template> {
                 const SizedBox(
                   height: 5,
                 ),
-                Container(
-                  height: 500,
-                  // height: MediaQuery.of(context).size.height,
-                  // width: MediaQuery.of(context).size.width,
+                Expanded(
                   child: ListView.builder(
-                    itemCount: 3,
-                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: widget.template.length,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return ExpandableContainer(
                         bodyText:
