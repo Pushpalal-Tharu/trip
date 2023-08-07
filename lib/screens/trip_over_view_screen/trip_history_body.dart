@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:trip/screens/trip_over_view_screen/trip_history_body_listview.dart';
+
+import 'trip_history_body_listview.dart';
 
 class TripHistoryBody extends StatelessWidget {
   const TripHistoryBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          StaticHeader(),
-          TripHistoryBodyListview(),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 16),
-            child: Container(
-              width: double.maxFinite,
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(const Color(0xFF222034)),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Create New Trip",
-                    style: TextStyle(color: Colors.white),
-                  )),
-            ),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        const StaticHeader(),
+        const TripHistoryBodyListview(),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 16),
+          child: SizedBox(
+            width: double.maxFinite,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(const Color(0xFF222034)),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  "Create New Trip",
+                  style: TextStyle(color: Colors.white),
+                )),
+          ),
+        )
+      ],
     );
   }
 }
@@ -56,15 +55,15 @@ class StaticHeader extends StatelessWidget {
               height: 35,
               alignment: Alignment.center,
               // color: Colors.red,
-              child: Text(
+              child: const Text(
                 "Partakers",
                 style: TextStyle(
-                  color: const Color(0xFFDBDFAA),
+                  color: Color(0xFFDBDFAA),
                   fontSize: 14,
                 ),
               ),
             ),
-            VerticalDivider(
+            const VerticalDivider(
               endIndent: 11,
               indent: 11,
             ),
@@ -72,15 +71,15 @@ class StaticHeader extends StatelessWidget {
               height: 35,
               alignment: Alignment.center,
               // color: Colors.red,
-              child: Text(
+              child: const Text(
                 "Trip’s Name",
                 style: TextStyle(
-                  color: const Color(0xFFDBDFAA),
+                  color: Color(0xFFDBDFAA),
                   fontSize: 14,
                 ),
               ),
             ),
-            VerticalDivider(
+            const VerticalDivider(
               endIndent: 11,
               indent: 11,
             ),
@@ -88,10 +87,10 @@ class StaticHeader extends StatelessWidget {
               height: 35,
               alignment: Alignment.center,
               // color: Colors.red,
-              child: Text(
+              child: const Text(
                 "Trip’s Date",
                 style: TextStyle(
-                  color: const Color(0xFFDBDFAA),
+                  color: Color(0xFFDBDFAA),
                   fontSize: 14,
                 ),
               ),

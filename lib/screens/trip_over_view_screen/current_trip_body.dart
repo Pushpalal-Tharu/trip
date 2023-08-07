@@ -45,39 +45,41 @@ class CurrentTripBody extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    width: 200,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Manaslu Trekk form Pokhara",
-                          style: TextStyle(
-                            color: const Color(0xFF222034),
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Container(
+                      width: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Manaslu Trekk form Pokhara",
+                            style: TextStyle(
+                              color: const Color(0xFF222034),
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Kathmandu to Manaslu Hill Region",
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
+                          Text(
+                            "Kathmandu to Manaslu Hill Region",
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "From 01/03/2023 to 05/03/2023",
-                          style: TextStyle(
-                            color: const Color(0xFF222034),
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w400,
+                          Text(
+                            "From 01/03/2023 to 05/03/2023",
+                            style: TextStyle(
+                              color: const Color(0xFF222034),
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(

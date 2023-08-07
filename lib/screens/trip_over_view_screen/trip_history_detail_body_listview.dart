@@ -1,22 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import '../../widgets/advanced_line.dart';
+import '../../../../widgets/advanced_line.dart';
+import '../../../../widgets/line_painter.dart';
 import '../../widgets/big_text.dart';
-import '../../widgets/line_painter.dart';
 import '../../widgets/small_text.dart';
 
 class TripHistoryDetailBodyListview extends StatelessWidget {
   TripHistoryDetailBodyListview({
     super.key,
   });
-  List newList = [5];
+
   @override
   Widget build(BuildContext context) {
-    return newList.isEmpty ? NoHistoryAvailable() : HistoryAvailable();
+    return HistoryAvailable();
   }
 }
 
 class HistoryAvailable extends StatelessWidget {
-  const HistoryAvailable({
+  HistoryAvailable({
     super.key,
   });
 
@@ -24,8 +25,8 @@ class HistoryAvailable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height * .53,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .60,
           child: Padding(
             padding: const EdgeInsets.only(
               top: 8,
@@ -33,7 +34,7 @@ class HistoryAvailable extends StatelessWidget {
             child: ListView.builder(
               itemCount: 10,
               shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
@@ -52,12 +53,14 @@ class HistoryAvailable extends StatelessWidget {
                               line: DashedLine(dashSize: 4, gapSize: 4),
                               paintDef: Paint()
                                 ..strokeWidth = 1.5
-                                ..color = index == 0 ? Color(0xf) : Colors.black
+                                ..color = index == 0
+                                    ? const Color(0x0000000f)
+                                    : Colors.black
                                 ..strokeCap = StrokeCap.round,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 10.0),
                             child: CircleAvatar(
                               radius: 5,
                               backgroundColor: Colors.green,
@@ -82,7 +85,7 @@ class HistoryAvailable extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 8),
                           child: Card(
                             color: Colors.white,
-                            child: Container(
+                            child: SizedBox(
                               height: 80,
                               width: MediaQuery.of(context).size.width * .95,
                               child: Row(
@@ -90,66 +93,58 @@ class HistoryAvailable extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   TripTakerImage(),
-                                  Container(
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      BigText(
+                                        text: "Bike Riding",
+                                      ),
+                                      SmallText(text: "From"),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      SmallText(text: "To")
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 6.0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.end,
                                       children: [
-                                        BigText(
-                                          text: "Bike Riding",
+                                        Row(
+                                          children: [
+                                            SmallText(
+                                              text: "1.05 Hrs",
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFFDBDFAA),
+                                                borderRadius:
+                                                    BorderRadiusDirectional
+                                                        .circular(16),
+                                              ),
+                                              child: const Icon(
+                                                  Icons.bike_scooter_outlined),
+                                            )
+                                          ],
                                         ),
-                                        SmallText(text: "From"),
-                                        SizedBox(
+                                        SmallText(
+                                            text: "Kathmandu, Sinamangal"),
+                                        const SizedBox(
                                           width: 5,
                                         ),
-                                        SmallText(text: "To")
+                                        SmallText(text: "Malekhu, Dhading")
                                       ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 6.0),
-                                    child: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                SmallText(
-                                                  text: "1.05 Hrs",
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  height: 30,
-                                                  width: 30,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        const Color(0xFFDBDFAA),
-                                                    borderRadius:
-                                                        BorderRadiusDirectional
-                                                            .circular(16),
-                                                  ),
-                                                  child: Icon(Icons
-                                                      .bike_scooter_outlined),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          SmallText(
-                                              text: "Kathmandu, Sinamangal"),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          SmallText(text: "Malekhu, Dhading")
-                                        ],
-                                      ),
                                     ),
                                   ),
                                 ],
@@ -165,10 +160,10 @@ class HistoryAvailable extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          child: Container(
+          child: SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
                 style: ButtonStyle(
@@ -176,7 +171,7 @@ class HistoryAvailable extends StatelessWidget {
                       MaterialStateProperty.all(const Color(0xFF222034)),
                 ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Create New Trip",
                   style: TextStyle(color: Colors.white),
                 )),
@@ -188,7 +183,7 @@ class HistoryAvailable extends StatelessWidget {
 }
 
 class TripTakerImage extends StatelessWidget {
-  const TripTakerImage({
+  TripTakerImage({
     super.key,
   });
 
@@ -269,48 +264,46 @@ class TripTakerImage extends StatelessWidget {
 }
 
 class NoHistoryAvailable extends StatelessWidget {
-  const NoHistoryAvailable({
-    super.key,
-  });
+  int num;
+  NoHistoryAvailable({
+    Key? key,
+    required this.num,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image(image: AssetImage("assets/images/list_view_error.png")),
-            // Spacer(),
-            Container(
-              height: 120,
-              width: 240,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                    child: BigText(
-                      text: "No History Available",
-                      size: 24,
-                    ),
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image(image: AssetImage("assets/images/list_view_error.png")),
+          // Spacer(),
+          SizedBox(
+            height: 120,
+            width: 240,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                  child: BigText(
+                    text: "No History Available",
+                    size: 24,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 8, right: 8, bottom: 18),
-                    child: SmallText(
-                      text:
-                          "History of Day-2 that you have aligned will show here.",
-                      size: 14,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 18),
+                  child: SmallText(
+                    text:
+                        "History of Day-$num that you have aligned will show here.",
+                    size: 14,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

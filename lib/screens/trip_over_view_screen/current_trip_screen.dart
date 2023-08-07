@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:trip/screens/trip_over_view_screen/trip_history_body.dart';
-import 'package:trip/widgets/big_text.dart';
+import '../../widgets/big_text.dart';
 import 'current_trip_body.dart';
+import 'trip_history_body.dart';
 
 class CurrentTripScreen extends StatefulWidget {
+  const CurrentTripScreen({super.key});
+
   @override
   _CurrentTripScreenState createState() => _CurrentTripScreenState();
 }
@@ -25,18 +27,21 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
         backgroundColor: const Color(0xFFDBDFAA),
         title: const Text("Trip Overview"),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+      body: Column(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(isSelected.length, (index) {
                   return GestureDetector(
                       onTap: () {
-                        //set the toggle logic
                         setState(() {
+                          pageController.animateToPage(index,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.linear);
                           for (int indexBtn = 0;
                               indexBtn < isSelected.length;
                               indexBtn++) {
@@ -68,38 +73,39 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                 }),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 12, left: 12),
-              child: Divider(),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(right: 12, left: 12),
+            child: Divider(),
+          ),
+          Expanded(
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: 2,
+              onPageChanged: (index) {
+                setState(() {
+                  for (int indexBtn = 0;
+                      indexBtn < isSelected.length;
+                      indexBtn++) {
+                    if (indexBtn == index) {
+                      isSelected[indexBtn] = true;
+                    } else {
+                      isSelected[indexBtn] = false;
+                    }
+                  }
+                });
+              },
+              itemBuilder: (context, position) {
+                return _buildPageItem(position);
+              },
             ),
-            Expanded(
-              child: PageView.builder(
-                controller: pageController,
-                itemCount: 2,
-                itemBuilder: (context, position) {
-                  return _buildPageItem(position);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   getView(int index) {
-    // if (index == 0) {
-    //   return BigText(
-    //     text: "Current Trip",
-    //     color: isSelected[0] ? Colors.white : Colors.black,
-    //   );
-    // } else {
-    //   return BigText(
-    //     text: "Trip History",
-    //     color: isSelected[1] ? Colors.white : Colors.black,
-    //   );
-    // }
-
     List<Widget> textList = [
       BigText(
         text: "Current Trip",
@@ -115,10 +121,9 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
 
   Widget _buildPageItem(int position) {
     if (position == 0) {
-      return CurrentTripBody();
+      return const CurrentTripBody();
     } else {
-      return TripHistoryBody();
+      return const TripHistoryBody();
     }
-    ;
   }
 }
