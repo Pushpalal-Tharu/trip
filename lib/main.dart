@@ -12,6 +12,8 @@ import 'package:trip/screens/profileScreen/privacy_policy_screen.dart';
 import 'package:trip/screens/profileScreen/settings_screen.dart';
 import 'package:trip/screens/trip_over_view_screen/current_trip_screen.dart';
 
+import 'screens/pin_and_note/bottom_sheet_button.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CurrentTripScreen(),
+      home: BottomSheetButton(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
         GetPage(
