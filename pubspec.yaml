@@ -39,6 +39,8 @@ dependencies:
   get: ^4.6.5
   webview_flutter: ^4.2.2
   package_info_plus: ^4.0.2
+  dimension: ^0.1.7
+  morphable_shape: ^1.6.6
 
 dev_dependencies:
   flutter_test:
