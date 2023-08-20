@@ -13,6 +13,7 @@ import 'package:trip/screens/profileScreen/settings_screen.dart';
 import 'package:trip/screens/trip_over_view_screen/current_trip_screen.dart';
 
 import 'screens/activities_planning/activity_planning_page.dart';
+import 'screens/group_trip/current_map.dart';
 import 'screens/pin_and_note/pin_and_note_bottom_sheet.dart';
 
 void main() {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ActivityPlanningPage(),
+      home: CurrentMap(),
       getPages: [
         GetPage(name: "/", page: () => Explore()),
         GetPage(
