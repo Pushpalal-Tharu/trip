@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../widgets/big_text.dart';
 
 class NotificationSettingScreen extends StatefulWidget {
   const NotificationSettingScreen({super.key});

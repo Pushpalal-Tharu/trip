@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:dimension/src/dimension.dart' as dimension;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,31 +17,111 @@ class CurrentMap extends StatefulWidget {
 
 class _CurrentMapState extends State<CurrentMap> {
   var appBarHeight = AppBar().preferredSize.height;
-  Completer<GoogleMapController> _controller = Completer();
-  CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(27.672375, 84.434432),
-    zoom: 14,
-  );
-  final Set<Marker> _markers = Set();
-  final Set<Polyline> _polyline = {};
-  PolylinePoints polylinePoints = PolylinePoints();
-  Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
 
-  List<LatLng> latlng = [
-    LatLng(27.672375, 84.434432),
-    LatLng(27.681954, 84.443815),
-    LatLng(27.687448, 84.422660),
-    LatLng(27.677718, 84.413374),
-    LatLng(27.672078, 84.412936),
-    LatLng(27.653317, 84.436084),
-    LatLng(27.693204, 84.455884),
-    LatLng(27.706131, 84.442543),
-  ];
+  Set<Marker> markers = {};
+
+  LatLng source = LatLng(27.669489, 84.440001);
+  // LatLng? source;
+
+  Map<PolylineId, Polyline> polyLines = <PolylineId, Polyline>{};
+
+  GoogleMapController? mapController;
 
   @override
   void initState() {
-    getMarker();
     super.initState();
+    addMarker();
+    getMultiplePolyLines();
+    // _determinePosition().then((value) {
+    //   setState(() {
+    //     LatLng source = LatLng(value.latitude, value.longitude);
+    //   });
+    // });
+  }
+
+  List<LatLng> listLocations = [
+    LatLng(27.695677, 84.421179),
+    LatLng(27.681768, 84.430156),
+    LatLng(27.686475, 84.438911),
+  ];
+
+  getMultiplePolyLines() async {
+    await Future.forEach(listLocations, (LatLng elem) async {
+      await _getRoutePolyline(
+        start: source,
+        finish: elem,
+        color: Colors.green,
+        id: 'firstPolyline $elem',
+        width: 4,
+      );
+    });
+    setState(() {});
+  }
+
+  Future<void> addMarker() async {
+    markers.add(Marker(
+        markerId: MarkerId(source.toString()),
+        position: source,
+        icon: await BitmapDescriptor.fromAssetImage(
+          ImageConfiguration(),
+          "assets/images/source.png",
+        )));
+    listLocations.forEach((element) async {
+      markers.add(Marker(
+          markerId: MarkerId(element.toString()),
+          position: element,
+          icon: await BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(),
+            "assets/images/profile.jpg",
+          ),
+          onTap: () {}));
+    });
+  }
+
+  Future<Polyline> _getRoutePolyline(
+      {required LatLng start,
+      required LatLng finish,
+      required Color color,
+      required String id,
+      int width = 6}) async {
+    // Generates every polyline between start and finish
+    final polylinePoints = PolylinePoints();
+    // Holds each polyline coordinate as Lat and Lng pairs
+    final List<LatLng> polylineCoordinates = [];
+
+    final startPoint = PointLatLng(start.latitude, start.longitude);
+    final finishPoint = PointLatLng(finish.latitude, finish.longitude);
+
+    final result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyC4dAB2WSV61YKCmYO6j6HdTq6m8rWireE",
+      startPoint,
+      finishPoint,
+      travelMode: TravelMode.driving,
+    );
+
+    if (result.points.isNotEmpty) {
+      // loop through all PointLatLng points and convert them
+      // to a list of LatLng, required by the Polyline
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        );
+      });
+    }
+
+    final Polyline polyline = Polyline(
+        polylineId: PolylineId(id),
+        consumeTapEvents: true,
+        points: polylineCoordinates,
+        color: Colors.red,
+        width: 6,
+        onTap: () {});
+
+    setState(() {
+      polyLines[PolylineId(id)] = polyline;
+    });
+
+    return polyline;
   }
 
   @override
@@ -130,25 +211,17 @@ class _CurrentMapState extends State<CurrentMap> {
               child: Stack(
                 children: [
                   GoogleMap(
-                    //padding parameter for positioning the Google logo and other map buttons
-                    padding: EdgeInsets.only(
-                      top: 40,
-                      bottom: 94,
-                    ),
-                    // polylines: _polyline,
-                    polylines: _polyline, //polylines
-                    //remove zoom in/out buttons
-                    zoomControlsEnabled: false,
-                    myLocationEnabled: true,
-                    //enable location button
-                    myLocationButtonEnabled: true,
-                    compassEnabled: true,
-                    initialCameraPosition: _kGooglePlex,
-                    markers: _markers, //markers to show on map
-                    mapType: MapType.normal, //map type
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
+                    polylines: Set<Polyline>.of(polyLines.values),
+                    markers: markers,
+                    onMapCreated: (c) {
+                      mapController = c;
                     },
+                    myLocationEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: source,
+                      zoom: 18.0,
+                    ),
+                    mapType: MapType.normal,
                   ),
                   Positioned(
                     left: 18,
@@ -379,37 +452,6 @@ class _CurrentMapState extends State<CurrentMap> {
       onSelected: (item) => SelectedItem(context, item),
     );
   }
-
-  getMarker() async {
-    for (int i = 0; i < latlng.length; i++) {
-      BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(),
-        "assets/images/profile.jpg",
-      );
-
-      _markers.add(
-        Marker(
-          markerId: MarkerId(i.toString()),
-          //_lastMapPosition is any coordinate which should be your default position when map opens up
-          position: latlng[i],
-          infoWindow: InfoWindow(
-            title: "Really cool place",
-            snippet: "5 Star Rating",
-          ),
-          icon: markerbitmap,
-        ),
-      );
-      setState(() {});
-      _polyline.add(
-        Polyline(
-          polylineId: PolylineId("1"),
-          color: Colors.deepPurpleAccent,
-          points: latlng,
-          width: 8,
-        ),
-      );
-    }
-  }
 }
 
 void SelectedItem(BuildContext context, item) {
@@ -431,3 +473,29 @@ void SelectedItem(BuildContext context, item) {
       break;
   }
 }
+
+// Future<Position> _determinePosition() async {
+//   bool serviceEnabled;
+//   LocationPermission permission;
+//   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+//   if (!serviceEnabled) {
+//     permission = await Geolocator.requestPermission();
+
+//     return Future.error('Location services are disabled.');
+//   }
+
+//   permission = await Geolocator.checkPermission();
+//   if (permission == LocationPermission.denied) {
+//     permission = await Geolocator.requestPermission();
+//     if (permission == LocationPermission.denied) {
+//       return Future.error('Location permissions are denied');
+//     }
+//   }
+
+//   if (permission == LocationPermission.deniedForever) {
+//     return Future.error(
+//         'Location permissions are permanently denied, we cannot request permissions.');
+//   }
+
+//   return await Geolocator.getCurrentPosition();
+// }
